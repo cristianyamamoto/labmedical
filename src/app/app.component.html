@@ -1,5 +1,11 @@
-<!-- <app-header [loggedUserHeader]="loggedUserApp" [usersList]="usersList"></app-header> -->
+<div class="appContainer">
 
-<div>
-  <router-outlet></router-outlet>
+  <!-- <app-sidebar *ngIf="loggedUserApp"></app-sidebar> -->
+
+  <div class="appContainer-body">
+    <app-toolbar [loggedUser]="loggedUserApp" [usersList]="usersList"></app-toolbar>
+    <router-outlet></router-outlet>
+  </div>
+
+
 </div>
