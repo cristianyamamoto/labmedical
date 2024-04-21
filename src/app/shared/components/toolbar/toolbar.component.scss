@@ -1,0 +1,42 @@
+@import "../../../../assets/variables";
+
+.toolbar {
+  font-family: $font-family;
+  color: $font-color;
+  background-color: $background-color;
+  background-image: linear-gradient($button-gradient-start, $button-gradient-end) !important;
+  margin-bottom: 5px;
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.toolbar span,
+.toolbar a {
+  text-decoration: none;
+  padding: 10px 10px;
+  font-size: 1.3em;
+  transition: .3s;
+}
+.toolbar a:hover {
+  // background-image: linear-gradient($button-hover-start, $button-hover-end);
+  cursor: pointer;
+}
+.toolbar h1 {
+  margin: 0;
+}
+
+.toolbar-profile {
+  margin-left: auto;
+}
+
+.bi {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.username {
+  position: relative;
+  bottom: 0.4rem;
+}

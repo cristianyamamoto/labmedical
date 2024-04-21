@@ -1,0 +1,10 @@
+<div *ngIf="loggedUser" class="toolbar">
+  <h1> LABMedical </h1>
+  <div class="toolbar-profile">
+    <span class="username">{{ loggedUser.name }}</span>
+    <i class="bi bi-person-circle h1"></i>
+    <a (click)="signOut()">
+      <i class="bi bi-box-arrow-right h2"></i>
+    </a>
+  </div>
+</div> <!-- #header-nav -->
