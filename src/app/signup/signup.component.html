@@ -1,0 +1,196 @@
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <h2 class="heading-section"></h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-7 col-lg-5">
+        <div class="wrap">
+          <div class="img" style="background-image: url(assets/LABMedical.svg);"></div>
+          <div class="signup-wrap p-4 p-md-5">
+            <div class="d-flex">
+              <div class="w-100">
+                <h3 class="mb-4">Cadastro</h3>
+              </div>
+            </div>
+            <form action="#" (ngSubmit)="signUp()" [formGroup]="signUpForm">
+              <div class="form-group">
+                <input
+                  id="name-field"
+                  type="text"
+                  class="form-control"
+                  required
+                  formControlName="name"
+                  [ngClass]="{'field-border-warning': (signUpForm.controls.name.dirty ||
+                  signUpForm.controls.name.touched) &&
+                  signUpForm.controls.name.errors}"
+                >
+                <label class="form-control-placeholder" for="name-field">Nome</label>
+                <span
+                  class="field-warning"
+                  *ngIf="(signUpForm.controls.name.dirty ||
+                  signUpForm.controls.name.touched) &&
+                  signUpForm.controls.name.errors &&
+                  signUpForm.controls.name.errors['required']"
+                >
+                Digite seu nome.
+                </span>
+              </div>
+              <div class="form-group">
+                <input
+                  id="email-field"
+                  type="text"
+                  class="form-control"
+                  required
+                  formControlName="email"
+                  [ngClass]="{'field-border-warning': (signUpForm.controls.email.dirty ||
+                  signUpForm.controls.email.touched) &&
+                  signUpForm.controls.email.errors}"
+                >
+                <label class="form-control-placeholder" for="email-field">E-mail</label>
+                <span
+                  class="field-warning"
+                  *ngIf="(signUpForm.controls.email.dirty ||
+                  signUpForm.controls.email.touched) &&
+                  signUpForm.controls.email.errors &&
+                  signUpForm.controls.email.errors['required']"
+                >
+                Digite seu E-mail.
+                </span>
+                <span
+                  class="field-warning"
+                  *ngIf="(signUpForm.controls.email.dirty ||
+                  signUpForm.controls.email.touched) &&
+                  signUpForm.controls.email.errors &&
+                  signUpForm.controls.email.errors['pattern']"
+                >
+                Formato de E-mail inválido.
+                </span>
+              </div>
+
+              <div class="row">
+                <div class="form-group col">
+                  <label class="static-label" for="birthdate-field">Data de Nascimento</label>
+                  <input
+                    id="birthdate-field"
+                    type="date"
+                    class="form-control"
+                    required
+                    formControlName="birthdate"
+                    [ngClass]="{'field-border-warning': (signUpForm.controls.birthdate.dirty ||
+                    signUpForm.controls.birthdate.touched) &&
+                    signUpForm.controls.birthdate.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(signUpForm.controls.birthdate.dirty ||
+                    signUpForm.controls.birthdate.touched) &&
+                    signUpForm.controls.birthdate.errors &&
+                    signUpForm.controls.birthdate.errors['required']"
+                  >
+                  Digite sua data de nascimento.
+                  </span>
+                </div>
+                <div class="form-group col">
+                  <label class="static-label" for="cep-field">CEP</label>
+                  <input
+                  id="cep-field"
+                  type="text"
+                  class="form-control"
+                  required
+                  formControlName="cep"
+                  placeholder="00000-000"
+                  [ngClass]="{'field-border-warning': (signUpForm.controls.cep.dirty ||
+                  signUpForm.controls.cep.touched) &&
+                  signUpForm.controls.cep.errors}"
+                  >
+                  <span
+                      class="field-warning"
+                      *ngIf="(signUpForm.controls.cep.dirty ||
+                      signUpForm.controls.cep.touched) &&
+                      signUpForm.controls.cep.errors &&
+                      signUpForm.controls.cep.errors['required']"
+                    >
+                    Digite um CEP.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(signUpForm.controls.cep.dirty ||
+                    signUpForm.controls.cep.touched) &&
+                    signUpForm.controls.cep.errors &&
+                    (signUpForm.controls.cep.errors['pattern'] || signUpForm.controls.cep.errors['maxlength'])"
+                  >
+                  Formato de CEP inválido.
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input
+                  id="password-field"
+                  type="password"
+                  class="form-control"
+                  required
+                  formControlName="password"
+                  [ngClass]="{'field-border-warning': (signUpForm.controls.password.dirty ||
+                  signUpForm.controls.password.touched) &&
+                  signUpForm.controls.cep.errors}"
+                >
+                <label class="form-control-placeholder" for="password-field">Senha</label>
+                <span
+                  class="field-warning"
+                  *ngIf="(signUpForm.controls.password.dirty ||
+                  signUpForm.controls.password.touched) &&
+                  signUpForm.controls.password.errors &&
+                  signUpForm.controls.password.errors['required']"
+                >
+                Escolha uma senha!
+                </span>
+                <span
+                  class="field-warning"
+                  *ngIf="(signUpForm.controls.password.dirty ||
+                  signUpForm.controls.password.touched) &&
+                  signUpForm.controls.password.errors &&
+                  signUpForm.controls.password.errors['minlength']"
+                >
+                Sua senha deve conter pelo menos 8 caracteres.
+                </span>
+              </div>
+              <div class="form-group">
+                <input
+                  id="confirm-password-field"
+                  type="password"
+                  class="form-control"
+                  required
+                  formControlName="confirm_password"
+                  [ngClass]="{'field-border-warning': (signUpForm.controls.confirm_password.dirty ||
+                  signUpForm.controls.confirm_password.touched) &&
+                  signUpForm.controls.confirm_password.errors}"
+                >
+                <label class="form-control-placeholder" for="confirm-password-field">Confirmar Senha</label>
+                <span
+                  class="field-warning"
+                  *ngIf="(signUpForm.controls.confirm_password.dirty ||
+                  signUpForm.controls.confirm_password.touched) &&
+                  signUpForm.controls.confirm_password.errors &&
+                  signUpForm.controls.confirm_password.errors['required']"
+                >
+                Confirme sua senha!
+                </span>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Cadastrar</button>
+              </div>
+              <p-toast [life]="3000"></p-toast>
+            </form>
+            <p class="text-center">Já possui uma conta? <a data-toggle="tab" routerLink="/login">Fazer o login</a></p>
+          </div> <!-- signup-wrap -->
+        </div> <!-- wrap -->
+      </div> <!--  -->
+    </div> <!--  -->
+  </div> <!-- container -->
+
+</section>
