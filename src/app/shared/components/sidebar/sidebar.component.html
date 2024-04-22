@@ -1,0 +1,107 @@
+<div class="sidebar" [ngClass]="{expanded: expandSidebar}" *ngIf="loggedUser">
+
+  <i (click)="expandSidebar = !expandSidebar" class="bi bi-heart-pulse h1"></i>
+  <span class="companyName" *ngIf="expandSidebar">LABMedical</span>
+
+  <div class="container-fluid">
+    <div class="row align-items">
+      <div class="d-flex flex-sm-column flex-row flex-nowrap align-items-center sticky-top">
+
+
+        <ul
+          class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto justify-content-between w-100 px-3 align-items-center">
+
+          <span class="ms-1 d-none d-sm-inline mt-4">Geral</span>
+          <div class="col">
+            <li class="nav-item">
+
+
+              <ul class="nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                <div class="row">
+
+                  <div class="col-12 menu-border mb-2">
+                    <li class="w-100">
+                      <a href="#">
+                        <i class="fs-4 bi bi-bar-chart"></i>
+                        <span *ngIf="expandSidebar" class="d-none d-sm-inline">Início&nbsp;&nbsp;&nbsp;</span></a>
+                    </li>
+                  </div>
+                  <div class="col-12 menu-border">
+                    <li>
+                      <a href="#">
+                        <i class=" fs-4 bi bi-box-arrow-right"></i>
+                        <span *ngIf="expandSidebar" class="d-none d-sm-inline">Sair&nbsp;&nbsp;&nbsp;</span>
+                      </a>
+                    </li>
+                  </div>
+                </div>
+              </ul>
+            </li>
+          </div>
+
+          <span class="d-none d-sm-inline mt-4">Pacientes</span>
+          <div class="col">
+            <li class="nav-item">
+
+
+              <ul class="nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                <div class="row">
+
+                  <div class="col-12 menu-border mb-2">
+                    <li class="w-100">
+                      <a href="#">
+                        <i class="fs-4 bi bi-plus"></i>
+                        <span *ngIf="expandSidebar" class="d-none d-sm-inline">Cadastrar </span></a>
+                    </li>
+                  </div>
+                  <div class="col-12 menu-border">
+                    <li>
+                      <a href="#">
+                        <i class="fs-4 bi bi-list-ul"></i>
+                        <span *ngIf="expandSidebar" class="d-none d-sm-inline">Listar Prontuário</span>
+                      </a>
+                    </li>
+                  </div>
+                </div>
+              </ul>
+            </li>
+          </div>
+
+          <span class="ms-1 d-none d-sm-inline mt-4">Exames</span>
+          <div class="col">
+            <li class="nav-item">
+
+              <ul class="nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                <div class="row">
+
+                  <div class="col-12 menu-border mb-2">
+                    <li class="w-100">
+                      <a href="#">
+                        <i class="fs-4 bi bi-plus"></i>
+                        <span *ngIf="expandSidebar" class="d-none d-sm-inline">Cadastrar Consulta</span></a>
+                    </li>
+                  </div>
+                  <div class="col-12 menu-border">
+                    <li>
+                      <a href="#">
+                        <i class="fs-4 bi bi-plus"></i>
+                        <span *ngIf="expandSidebar" class="d-none d-sm-inline">Cadastrar Exame</span></a>
+                    </li>
+                  </div>
+                </div>
+              </ul>
+            </li>
+          </div>
+
+        </ul>
+
+        <div class="sidebarCaret">
+          <i (click)="expandSidebar = !expandSidebar" *ngIf="!expandSidebar" class="fs-4 bi bi-caret-right"></i>
+          <i (click)="expandSidebar = !expandSidebar" *ngIf="expandSidebar" class="fs-4 bi bi-caret-left"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

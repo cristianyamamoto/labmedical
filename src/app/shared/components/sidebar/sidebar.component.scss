@@ -1,0 +1,90 @@
+@import "../../../../assets/variables";
+
+.sidebar {
+  font-family: $font-family;
+  color: $font-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  background-color: $primary-color;
+  width: 5.2rem;
+  transition: width 1s ease;
+  span {
+    font-size: 0.75rem;
+    transition: font-size 0.5s ease;
+  }
+  &.expanded {
+    width: 15rem;
+    transition: width 1s ease;
+    i {
+      font-size: 4rem;
+      transition: font-size 0.5s ease;
+      padding-right: 6px;
+    }
+    .companyName {
+      font-size: 1.4rem;
+    }
+    span, a {
+      font-size: 1rem;
+      transition: font-size 0.5s ease;
+    }
+    span {
+      position: relative;
+      bottom: 0.2rem;
+    }
+    a {
+      padding: 6px 14px 6px 14px;
+    }
+  }
+}
+
+/* Style sidebar links */
+.sidebar a {
+  padding: 2px 10px 2px 10px;
+  text-decoration: none;
+  font-size: 2em;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+/* Style links on mouse-over */
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar i {
+  font-size: 2.4rem;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: font-size 0.5s ease;
+}
+
+.sidebar i:hover {
+  color: $button-hover-end;
+  transition: color 0.3s;
+}
+
+.container-fluid {
+  a {
+    color: $font-color;
+    transition: color 0.3s;
+  }
+}
+
+.container-fluid a:hover {
+  color: $button-hover-end;
+  transition: color 0.3s;
+}
+
+#submenu1 .menu-border {
+  border: 1px solid #f1f1f1;
+  border-radius: 5px;
+  padding: 0;
+}
+
+.sidebarCaret {
+  margin-top: 5em;
+  align-self: flex-end;
+}

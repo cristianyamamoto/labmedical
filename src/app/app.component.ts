@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { ToolbarComponent } from './shared/components/toolbar/toolbar.component';
 
 @Component({
@@ -8,7 +9,8 @@ import { ToolbarComponent } from './shared/components/toolbar/toolbar.component'
   standalone: true,
   imports: [
     RouterOutlet,
-    ToolbarComponent
+    ToolbarComponent,
+    SidebarComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
