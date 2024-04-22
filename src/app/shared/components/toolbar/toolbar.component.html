@@ -1,10 +1,30 @@
 <div *ngIf="loggedUser" class="toolbar">
   <h1> LABMedical </h1>
   <div class="toolbar-profile">
-    <span class="username">{{ loggedUser.name }}</span>
-    <i class="bi bi-person-circle h1"></i>
-    <a (click)="signOut()">
-      <i class="bi bi-box-arrow-right h2"></i>
-    </a>
-  </div>
-</div> <!-- #header-nav -->
+    <div class="container">
+      <div class="row">
+
+        <div class="col">
+          <span class="username">{{ loggedUser.name }}</span>
+        </div>
+
+        <div  class="col">
+          <div class="dropdown">
+            <a class="" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi-person-circle h1"></i>
+            </a>
+            <ul class="dropdown-menu shadow" aria-labelledby="dropdownUser">
+              <li>
+                <a (click)="signOut()" class="dropdown-item text-center">
+                  Sair
+                  <i class="bi bi-box-arrow-right h3"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div> <!-- row -->
+    </div> <!-- container -->
+  </div> <!-- toolbar-profile -->
+</div> <!-- toolbar -->
