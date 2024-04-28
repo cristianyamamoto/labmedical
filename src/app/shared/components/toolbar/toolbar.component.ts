@@ -22,12 +22,8 @@ export class ToolbarComponent {
   };
 
   signOut(){
-    if(this.loggedUser){
-      this.loggedUser.auth = false;
-      localStorage.setItem("users", JSON.stringify(this.usersList));
-      this.router.navigate(["/login"]);
-      this.loggedUser = undefined;
-    }
+    this.authService.signOut();
+    this.router.navigate(["/login"]);
   }
 
 }

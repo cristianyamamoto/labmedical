@@ -27,7 +27,7 @@ export class AuthService {
       this.getLoggedUser.emit(user);
       return true
     } else {
-      this.getLoggedUser.emit("");
+      this.getLoggedUser.emit(undefined);
       return false;
     }
   }
@@ -45,6 +45,16 @@ export class AuthService {
   loggedUser(){
     const users = this.getUsers();
     return users.find((user: { auth: boolean; }) => user.auth == true);
+  }
+
+  signOut(){
+    const users = this.getUsers();
+    const loggedUser = users.find((user: { auth: boolean; }) => user.auth == true);
+    if(loggedUser){
+      loggedUser.auth = false;
+      localStorage.setItem("users", JSON.stringify(users));
+      this.getLoggedUser.emit(undefined);
+    }
   }
 
 }
