@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,5 +13,7 @@ export class SidebarComponent {
   expandSidebar: boolean = true;
   @Input() loggedUser: any;
 
-
+  constructor( private authService: AuthService) {
+    this.authService.getLoggedUser.subscribe(user => this.loggedUser = user);
+  };
 }
