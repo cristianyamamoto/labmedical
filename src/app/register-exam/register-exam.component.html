@@ -39,7 +39,7 @@
               <h5 class="mb-2"><b>Exame de {{ selectedPatient?.name }}</b></h5>
             </div>
 
-            <form *ngIf="selectedPatient" action="#" (ngSubmit)="createAppointment()" [formGroup]="examForm">
+            <form *ngIf="selectedPatient" action="#" (ngSubmit)="createExam()" [formGroup]="examForm">
 
               <div class="row">
 

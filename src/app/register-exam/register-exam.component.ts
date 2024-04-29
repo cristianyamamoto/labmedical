@@ -89,7 +89,7 @@ export class RegisterExamComponent {
     };
   }
 
-  createAppointment(){
+  createExam(){
     const requiredInputs: any = [
       {"Nome do Exame": this.examForm.value.exam_name},
       {"Data": this.examForm.value.date},
