@@ -1,0 +1,228 @@
+<section class="ftco-section">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12 text-center">
+        <h2>Encontre o paciente para consulta</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <input
+          id="search-patient-field"
+          type="text"
+          class="form-control"
+          required
+          [(ngModel)]="patientSearch"
+          placeholder="Procurar paciente..."
+          (ngModelChange)="searchPatient()"
+        >
+      </div>
+
+      <div class="row justify-content-center mt-3">
+        <div class="display-flex">
+          <div class="card hover-pointer" *ngFor="let patient of filteredPatients" (click)="selectPatient(patient.id)">
+            <i class="bi bi-person-square h1"></i>
+            <h2><b>{{ patient.name }}</b></h2>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row justify-content-center mt-2">
+      <div class="col-12">
+        <div *ngIf="selectedPatient" class="wrap">
+          <div class="p-md-4">
+
+            <div class="d-flex">
+              <h5 class="mb-2"><b>Consulta de {{ selectedPatient?.name }}</b></h5>
+            </div>
+
+            <form *ngIf="selectedPatient" action="#" (ngSubmit)="createAppointment()" [formGroup]="appointmentForm">
+
+              <div class="row">
+
+                <div class="form-group col-6">
+                  <label class="static-label" for="appointment_motive-field">Motivo da Consulta*</label>
+                  <input
+                    id="appointment_motive-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="appointment_motive"
+                    [ngClass]="{'field-border-warning': (appointmentForm.controls.appointment_motive.dirty ||
+                    appointmentForm.controls.appointment_motive.touched) &&
+                    appointmentForm.controls.appointment_motive.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(appointmentForm.controls.appointment_motive.dirty ||
+                    appointmentForm.controls.appointment_motive.touched) &&
+                    appointmentForm.controls.appointment_motive.errors &&
+                    appointmentForm.controls.appointment_motive.errors['required']"
+                  >
+                  Preencha o Motivo.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(appointmentForm.controls.appointment_motive.dirty ||
+                    appointmentForm.controls.appointment_motive.touched) &&
+                    appointmentForm.controls.appointment_motive.errors &&
+                    (appointmentForm.controls.appointment_motive.errors['minlength'] ||
+                    appointmentForm.controls.appointment_motive.errors['maxlength'])"
+                  >
+                  Motivo deve conter de 8 a 64 caracteres.
+                  </span>
+                </div>
+
+                <div class="form-group col-3">
+                  <label class="static-label" for="date-field">Data</label>
+                  <input
+                    id="date-field"
+                    type="date"
+                    class="form-control"
+                    required
+                    formControlName="date"
+                    [ngClass]="{'field-border-warning': (appointmentForm.controls.date.dirty ||
+                    appointmentForm.controls.date.touched) &&
+                    appointmentForm.controls.date.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(appointmentForm.controls.date.dirty ||
+                    appointmentForm.controls.date.touched) &&
+                    appointmentForm.controls.date.errors &&
+                    appointmentForm.controls.date.errors['required']"
+                  >
+                  Preencha a Data da Consulta.
+                  </span>
+                </div>
+
+                <div class="form-group col-3">
+                  <label class="static-label" for="time-field">Horário</label>
+                  <input
+                    id="time-field"
+                    type="time"
+                    class="form-control"
+                    required
+                    formControlName="time"
+                    [ngClass]="{'field-border-warning': (appointmentForm.controls.time.dirty ||
+                    appointmentForm.controls.time.touched) &&
+                    appointmentForm.controls.time.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(appointmentForm.controls.time.dirty ||
+                    appointmentForm.controls.time.touched) &&
+                    appointmentForm.controls.time.errors &&
+                    appointmentForm.controls.time.errors['required']"
+                  >
+                  Preencha o Horário da Consulta.
+                  </span>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="form-group col-12">
+                  <label class="static-label" for="description-field">Descrição</label>
+                  <textarea
+                    id="description-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="description"
+                    [ngClass]="{'field-border-warning': (appointmentForm.controls.description.dirty ||
+                    appointmentForm.controls.description.touched) &&
+                    appointmentForm.controls.description.errors}"
+                  >
+                  </textarea>
+                  <span
+                    class="field-warning"
+                    *ngIf="(appointmentForm.controls.description.dirty ||
+                    appointmentForm.controls.description.touched) &&
+                    appointmentForm.controls.description.errors &&
+                    appointmentForm.controls.description.errors['required']"
+                  >
+                  Preencha a Descrição.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(appointmentForm.controls.description.dirty ||
+                    appointmentForm.controls.description.touched) &&
+                    appointmentForm.controls.description.errors &&
+                    (appointmentForm.controls.description.errors['minlength'] ||
+                    appointmentForm.controls.description.errors['maxlength'])"
+                  >
+                  Descrição deve conter de 6 a 1024 caracteres.
+                  </span>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="form-group col-12">
+                  <label class="static-label" for="medication-field">Medicação Receitada</label>
+                  <textarea
+                    id="medication-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="medication"
+                  >
+                  </textarea>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-12">
+                  <label class="static-label" for="precautions-field">Dosagem e Precauções</label>
+                  <textarea
+                    id="precautions-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="precautions"
+                    [ngClass]="{'field-border-warning': (appointmentForm.controls.precautions.dirty ||
+                    appointmentForm.controls.precautions.touched) &&
+                    appointmentForm.controls.precautions.errors}"
+                  >
+                  </textarea>
+                  <span
+                    class="field-warning"
+                    *ngIf="(appointmentForm.controls.precautions.dirty ||
+                    appointmentForm.controls.precautions.touched) &&
+                    appointmentForm.controls.precautions.errors &&
+                    appointmentForm.controls.precautions.errors['required']"
+                  >
+                  Preencha Dosagem e Precauções.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(appointmentForm.controls.precautions.dirty ||
+                    appointmentForm.controls.precautions.touched) &&
+                    appointmentForm.controls.precautions.errors &&
+                    (appointmentForm.controls.precautions.errors['minlength'] ||
+                    appointmentForm.controls.precautions.errors['maxlength'])"
+                  >
+                  Dosagem e Precauções devem conter de 16 a 256 caracteres.
+                  </span>
+                </div>
+              </div>
+
+              <div class="row justify-content-center">
+                <div class="form-group col-4">
+                  <button type="submit" class="form-control btn btn-primary rounded submit px-3">Cadastrar</button>
+                </div>
+              </div>
+
+              <p-toast [life]="3000"></p-toast>
+            </form>
+          </div> <!--  -->
+        </div> <!-- wrap -->
+      </div> <!--  -->
+    </div> <!--  -->
+  </div> <!-- container -->
+
+</section>

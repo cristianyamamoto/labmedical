@@ -1,0 +1,524 @@
+<section class="ftco-section">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12 text-center">
+        <h2>Preencha os campos para cadastrar um paciente</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-2">
+      <div class="col-12">
+        <div class="wrap">
+          <div class="p-md-4">
+
+            <div class="d-flex">
+              <h5 class="mb-2"><b>Identificação</b></h5>
+            </div>
+
+            <form action="#" (ngSubmit)="createPatient()" [formGroup]="patientForm">
+
+              <div class="row">
+
+                <div class="form-group col-6">
+                  <label class="static-label" for="name-field">Nome Completo*</label>
+                  <input
+                    id="name-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="name"
+                    [ngClass]="{'field-border-warning': (patientForm.controls.name.dirty ||
+                    patientForm.controls.name.touched) &&
+                    patientForm.controls.name.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.name.dirty ||
+                    patientForm.controls.name.touched) &&
+                    patientForm.controls.name.errors &&
+                    patientForm.controls.name.errors['required']"
+                  >
+                  Preencha o Nome.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.name.dirty ||
+                    patientForm.controls.name.touched) &&
+                    patientForm.controls.name.errors &&
+                    (patientForm.controls.name.errors['minlength'] ||
+                    patientForm.controls.name.errors['maxlength'])"
+                  >
+                  Nome deve conter de 8 a 64 caracteres.
+                  </span>
+                </div>
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="gender-field">Gênero*</label>
+                  <select
+                    id="gender-field"
+                    class="form-control"
+                    required
+                    formControlName="gender"
+                    [ngClass]="{'field-border-warning': (patientForm.controls.gender.dirty ||
+                    patientForm.controls.gender.touched) &&
+                    patientForm.controls.gender.errors}"
+                  >
+                    <option selected value="">--</option>
+                    <option *ngFor="let gender of genders" [ngValue]="gender">{{ gender }}</option>
+                  </select>
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.gender.dirty ||
+                    patientForm.controls.gender.touched) &&
+                    patientForm.controls.gender.errors &&
+                    patientForm.controls.gender.errors['required']"
+                  >
+                  Preencha o Gênero.
+                  </span>
+                </div>
+
+                <div class="form-group col-2">
+                  <label class="static-label" for="birthdate-field">Nascimento</label>
+                  <input
+                    id="birthdate-field"
+                    type="date"
+                    class="form-control"
+                    required
+                    formControlName="birthdate"
+                    [ngClass]="{'field-border-warning': (patientForm.controls.birthdate.dirty ||
+                    patientForm.controls.birthdate.touched) &&
+                    patientForm.controls.birthdate.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.birthdate.dirty ||
+                    patientForm.controls.birthdate.touched) &&
+                    patientForm.controls.birthdate.errors &&
+                    patientForm.controls.birthdate.errors['required']"
+                  >
+                  Preencha a Data de Nascimento.
+                  </span>
+                </div>
+
+              </div>
+
+
+
+              <div class="row">
+                <div class="form-group col-4">
+                  <label class="static-label" for="CPF-field">CPF</label>
+                  <input
+                    id="CPF-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="CPF"
+                    [ngClass]="{'field-border-warning': (patientForm.controls.CPF.dirty ||
+                    patientForm.controls.CPF.touched) &&
+                    patientForm.controls.CPF.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.CPF.dirty ||
+                    patientForm.controls.CPF.touched) &&
+                    patientForm.controls.CPF.errors &&
+                    patientForm.controls.CPF.errors['required']"
+                  >
+                  Preencha o CPF.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.CPF.dirty ||
+                    patientForm.controls.CPF.touched) &&
+                    patientForm.controls.CPF.errors &&
+                    patientForm.controls.CPF.errors['pattern']"
+                  >
+                  Formato inválido.
+                  </span>
+                </div>
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="RG-field">RG</label>
+                  <input
+                    id="RG-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="RG"
+                    [ngClass]="{'field-border-warning': (patientForm.controls.RG.dirty ||
+                    patientForm.controls.RG.touched) &&
+                    patientForm.controls.RG.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.RG.dirty ||
+                    patientForm.controls.RG.touched) &&
+                    patientForm.controls.RG.errors &&
+                    patientForm.controls.RG.errors['required']"
+                  >
+                  Preencha o RG.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.RG.dirty ||
+                    patientForm.controls.RG.touched) &&
+                    patientForm.controls.RG.errors &&
+                    patientForm.controls.RG.errors['pattern']"
+                  >
+                  Formato inválido.
+                  </span>
+                </div>
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="marital_status-field">Estado Civil*</label>
+                  <select
+                    id="marital_status-field"
+                    class="form-control"
+                    required
+                    formControlName="marital_status"
+                    [ngClass]="{'field-border-warning': (patientForm.controls.marital_status.dirty ||
+                    patientForm.controls.marital_status.touched) &&
+                    patientForm.controls.marital_status.errors}"
+                  >
+                    <option selected value="">--</option>
+                    <option *ngFor="let marital_status of marital_statuses" [ngValue]="marital_status">{{ marital_status }}</option>
+                  </select>
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.marital_status.dirty ||
+                    patientForm.controls.marital_status.touched) &&
+                    patientForm.controls.marital_status.errors &&
+                    patientForm.controls.marital_status.errors['required']"
+                  >
+                  Preencha o Estado Civil.
+                  </span>
+                </div>
+              </div>
+
+
+
+
+              <div class="row">
+                <div class="form-group col-4">
+                  <label class="static-label" for="phone-field">Telefone</label>
+                  <input
+                    id="phone-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="phone"
+                    [ngClass]="{'field-border-warning': (patientForm.controls.phone.dirty ||
+                    patientForm.controls.phone.touched) &&
+                    patientForm.controls.phone.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.phone.dirty ||
+                    patientForm.controls.phone.touched) &&
+                    patientForm.controls.phone.errors &&
+                    patientForm.controls.phone.errors['required']"
+                  >
+                  Preencha o telefone.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.phone.dirty ||
+                    patientForm.controls.phone.touched) &&
+                    patientForm.controls.phone.errors &&
+                    patientForm.controls.phone.errors['pattern']"
+                  >
+                  Formato inválido.
+                  </span>
+                </div>
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="RG-field">E-mail</label>
+                  <input
+                    id="email-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="email"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.email.dirty ||
+                    patientForm.controls.email.touched) &&
+                    patientForm.controls.email.errors &&
+                    patientForm.controls.email.errors['pattern']"
+                  >
+                  Formato inválido.
+                  </span>
+                </div>
+
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="nationality-field">Naturalidade</label>
+                  <input
+                    id="nationality-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="nationality"
+                    [ngClass]="{'field-border-warning': (patientForm.controls.nationality.dirty ||
+                    patientForm.controls.nationality.touched) &&
+                    patientForm.controls.nationality.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.nationality.dirty ||
+                    patientForm.controls.nationality.touched) &&
+                    patientForm.controls.nationality.errors &&
+                    patientForm.controls.nationality.errors['required']"
+                  >
+                  Preencha a Naturalidade.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.nationality.dirty ||
+                    patientForm.controls.nationality.touched) &&
+                    patientForm.controls.nationality.errors &&
+                    (patientForm.controls.nationality.errors['minlength'] ||
+                    patientForm.controls.nationality.errors['maxlength'])"
+                  >
+                  Naturalidade deve conter de 8 a 64 caracteres.
+                  </span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-4">
+                  <label class="static-label" for="alergies-field">Alergias</label>
+                  <input
+                    id="alergies-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="alergies"
+                  >
+                </div>
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="special_needs-field">Cuidados Específicos</label>
+                  <input
+                    id="special_needs-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="special_needs"
+                  >
+                </div>
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="emergency_contact-field">Contato de Emergência</label>
+                  <input
+                    id="emergency_contact-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="emergency_contact"
+                  >
+                </div>
+                <span
+                  class="field-warning"
+                  *ngIf="(patientForm.controls.emergency_contact.dirty ||
+                  patientForm.controls.emergency_contact.touched) &&
+                  patientForm.controls.emergency_contact.errors &&
+                  patientForm.controls.emergency_contact.errors['required']"
+                >
+                Preencha o contato de Emergência.
+                </span>
+                <span
+                  class="field-warning"
+                  *ngIf="(patientForm.controls.emergency_contact.dirty ||
+                  patientForm.controls.emergency_contact.touched) &&
+                  patientForm.controls.emergency_contact.errors &&
+                  patientForm.controls.emergency_contact.errors['pattern']"
+                >
+                Formato inválido.
+                </span>
+
+              </div>
+
+              <div class="d-flex">
+                <h5 class="mb-2"><b>Convênio</b></h5>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-4">
+                  <label class="static-label" for="health_insurance-field">Convênio</label>
+                  <input
+                    id="health_insurance-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="health_insurance"
+                  >
+                </div>
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="health_insurance_number-field">Número da Carteira</label>
+                  <input
+                    id="health_insurance_number-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="health_insurance_number"
+                  >
+                </div>
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="health_insurance_expiration-field">Validade do Convênio</label>
+                  <input
+                    id="health_insurance_expiration-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="health_insurance_expiration"
+                  >
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <h5 class="mb-2"><b>Dados de Endereço</b></h5>
+              </div>
+
+
+              <div class="row">
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="cep-field">CEP</label>
+                  <input
+                  id="cep-field"
+                  type="text"
+                  class="form-control"
+                  required
+                  formControlName="cep"
+                  placeholder="00000-000"
+                  [ngClass]="{'field-border-warning': (patientForm.controls.cep.dirty ||
+                  patientForm.controls.cep.touched) &&
+                  patientForm.controls.cep.errors}"
+                  (change)="searchCEP()"
+                  >
+                  <span
+                      class="field-warning"
+                      *ngIf="(patientForm.controls.cep.dirty ||
+                      patientForm.controls.cep.touched) &&
+                      patientForm.controls.cep.errors &&
+                      patientForm.controls.cep.errors['required']"
+                    >
+                    Preencha o CEP.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(patientForm.controls.cep.dirty ||
+                    patientForm.controls.cep.touched) &&
+                    patientForm.controls.cep.errors &&
+                    (patientForm.controls.cep.errors['pattern'] || patientForm.controls.cep.errors['maxlength'])"
+                  >
+                  Formato Inválido.
+                  </span>
+                </div>
+
+                <div class="form-group col-6">
+                  <label class="static-label" for="city-field">Cidade</label>
+                  <input
+                    id="city-field"
+                    type="text"
+                    class="form-control"
+                    readonly
+                    formControlName="city"
+                    value="{{ address?.localidade }}"
+                  >
+                </div>
+
+                <div class="form-group col-2">
+                  <label class="static-label" for="state-field">Estado</label>
+                  <input
+                    id="state-field"
+                    type="text"
+                    class="form-control"
+                    readonly
+                    formControlName="state"
+                    value="{{ address?.uf }}"
+                  >
+                </div>
+
+              </div>
+
+              <div class="row">
+
+                <div class="form-group col-10">
+                  <label class="static-label" for="street-field">Logradouro</label>
+                  <input
+                    id="street-field"
+                    type="text"
+                    class="form-control"
+                    readonly
+                    formControlName="street"
+                    value="{{ address?.logradouro }}"
+                  >
+                </div>
+
+                <div class="form-group col-2">
+                  <label class="static-label" for="address_number-field">Número</label>
+                  <input
+                    id="address_number-field"
+                    type="number"
+                    class="form-control"
+                    formControlName="address_number"
+                  >
+                </div>
+
+              </div>
+
+              <div class="row">
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="address_complement-field">Complemento</label>
+                  <input
+                    id="address_complement-field"
+                    type="text"
+                    class="form-control"
+                    formControlName="address_complement"
+                  >
+                </div>
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="neighbourhood-field">Bairro</label>
+                  <input
+                    id="neighbourhood-field"
+                    type="text"
+                    readonly
+                    class="form-control"
+                    formControlName="neighbourhood"
+                    value="{{ address?.bairro }}"
+                  >
+                </div>
+
+                <div class="form-group col-4">
+                  <label class="static-label" for="address_reference-field">Referência</label>
+                  <input
+                    id="address_reference-field"
+                    type="text"
+                    class="form-control"
+                    formControlName="address_reference"
+                  >
+                </div>
+
+              </div>
+
+              <div class="row justify-content-center">
+                <div class="form-group col-4">
+                  <button type="submit" class="form-control btn btn-primary rounded submit px-3">Cadastrar</button>
+                </div>
+              </div>
+
+              <p-toast [life]="3000"></p-toast>
+            </form>
+          </div> <!--  -->
+        </div> <!-- wrap -->
+      </div> <!--  -->
+    </div> <!--  -->
+  </div> <!-- container -->
+
+</section>

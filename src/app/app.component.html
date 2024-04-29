@@ -1,0 +1,9 @@
+<div class="appContainer">
+
+  <app-sidebar [loggedUser]="loggedUserApp"></app-sidebar>
+  <div class="appContainer-body">
+    <app-toolbar [loggedUser]="loggedUserApp" [usersList]="usersList"></app-toolbar>
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

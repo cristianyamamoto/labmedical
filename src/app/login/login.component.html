@@ -1,0 +1,84 @@
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <h2 class="heading-section"></h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-7 col-lg-5">
+        <div class="wrap">
+          <div class="img" style="background-image: url(assets/LABMedical.svg);"></div>
+          <div class="login-wrap p-4 p-md-5">
+            <div class="d-flex">
+              <div class="w-100">
+                <h3 class="mb-4">Login</h3>
+              </div>
+            </div>
+            <form action="#" class="signin-form" (ngSubmit)="signIn()" [formGroup]="loginForm">
+              <div class="form-group mt-3">
+                <input
+                  id="email-field"
+                  type="text"
+                  class="form-control"
+                  required
+                  formControlName="email"
+                  [ngClass]="{'field-border-warning': (loginForm.controls.email.dirty ||
+                  loginForm.controls.email.touched) &&
+                  loginForm.controls.email.errors}"
+                >
+                <label class="form-control-placeholder" for="email-field">E-mail</label>
+                <span
+                  class="field-warning"
+                  *ngIf="(loginForm.controls.email.dirty ||
+                  loginForm.controls.email.touched) &&
+                  loginForm.controls.email.errors &&
+                  loginForm.controls.email.errors['required']"
+                >
+                Digite o E-mail do usuário.
+                </span>
+              </div>
+              <div class="form-group">
+                <input
+                  id="password-field"
+                  type="password"
+                  class="form-control"
+                  required
+                  formControlName="password"
+                  [ngClass]="{'field-border-warning': (loginForm.controls.password.dirty ||
+                  loginForm.controls.password.touched) &&
+                  loginForm.controls.password.errors}"
+                  >
+                <label class="form-control-placeholder" for="password-field">Senha</label>
+                <span
+                  class="field-warning"
+                  *ngIf="(loginForm.controls.password.dirty ||
+                  loginForm.controls.password.touched) &&
+                  loginForm.controls.password.errors &&
+                  loginForm.controls.password.errors['required']"
+                >
+                Digite a senha.
+                </span>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="form-control btn btn-primary rounded submit px-3">
+                  <p-progressSpinner
+                  [style]="{width: '1.5rem', height: '1.5rem'}"
+                  strokeWidth="6"
+                  ariaLabel="loading"
+                  *ngIf="redirect"
+                  styleClass="custom-spinner"
+                  ></p-progressSpinner>
+                  <p *ngIf="!redirect">Entrar</p>
+                </button>
+              </div>
+              <p class="text-center"><button type="button" (click)="forgotPassword()" class="btn btn-secondary">Esqueceu a senha</button></p>
+              <p-toast [life]="3000"></p-toast>
+            </form>
+            <p class="text-center">Não possui uma conta? <a data-toggle="tab" routerLink="/signup">Criar Conta</a></p>
+          </div> <!-- login-wrap -->
+        </div> <!-- wrap -->
+      </div> <!--  -->
+    </div> <!--  -->
+  </div> <!-- container -->
+</section>
