@@ -53,7 +53,7 @@
 
     <div class="row justify-content-center">
       <div class="display-flex">
-        <div class="card hover-pointer" *ngFor="let patient of filteredPatients">
+        <div class="card hover-pointer" *ngFor="let patient of filteredPatients" (click)="redirectToEditPage(patient.id)">
           <i class="bi bi-person-square h1"></i>
           <h2><b>{{ patient.name }}</b></h2>
           <p>{{ patient.birthdate | date : 'yyyy/MM/dd' | birthdateToAge }} anos</p>

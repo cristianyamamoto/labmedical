@@ -33,6 +33,11 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'register-patient/:id',
+    component: RegisterPatientComponent,
+    canActivate: [authGuard]
+  },
+  {
     path: 'register-appointment',
     component: RegisterAppointmentComponent,
     canActivate: [authGuard]
