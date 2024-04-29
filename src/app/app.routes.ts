@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterAppointmentComponent } from './register-appointment/register-appointment.component';
 import { RegisterExamComponent } from './register-exam/register-exam.component';
 import { RegisterPatientComponent } from './register-patient/register-patient.component';
+import { authGuard } from './shared/guards/auth.guard';
 import { SignupComponent } from './signup/signup.component';
 
 export const routes: Routes = [
@@ -15,7 +16,7 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    // canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'login',
@@ -27,14 +28,17 @@ export const routes: Routes = [
   },
   {
     path: 'register-patient',
-    component: RegisterPatientComponent
+    component: RegisterPatientComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'register-appointment',
-    component: RegisterAppointmentComponent
+    component: RegisterAppointmentComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'register-exam',
-    component: RegisterExamComponent
+    component: RegisterExamComponent,
+    canActivate: [authGuard]
   },
 ];
