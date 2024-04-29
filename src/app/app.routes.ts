@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterAppointmentComponent } from './register-appointment/register-appointment.component';
+import { RegisterExamComponent } from './register-exam/register-exam.component';
 import { RegisterPatientComponent } from './register-patient/register-patient.component';
 import { SignupComponent } from './signup/signup.component';
 
@@ -31,5 +32,9 @@ export const routes: Routes = [
   {
     path: 'register-appointment',
     component: RegisterAppointmentComponent
+  },
+  {
+    path: 'register-exam',
+    component: RegisterExamComponent
   },
 ];
