@@ -76,4 +76,8 @@ export class HomeComponent implements OnInit {
       patient.name.toLowerCase().includes(this.patient.toLowerCase()));
     }
   }
+
+  redirectToEditPage(id: number) {
+    this.router.navigate([`/register-patient/${id}`]);
+  }
 }

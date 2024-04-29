@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AddressService } from '../services/address.service';
 import { AuthService } from '../services/auth.service';
 import { PageTitleService } from '../services/page-title.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-register-patient',
@@ -15,7 +16,8 @@ import { PageTitleService } from '../services/page-title.service';
     ReactiveFormsModule,
     RouterLink,
     CommonModule,
-    ToastModule
+    ToastModule,
+    ButtonModule
   ],
   providers: [MessageService],
   templateUrl: './register-patient.component.html',
@@ -81,15 +83,50 @@ export class RegisterPatientComponent {
   marital_statuses: string[] = ['Casado', 'Solteiro', 'Outro'];
   patients: any[] = this.getPatients();
   address: any = undefined;
+  edit: boolean = false;
+  selectedPatient: any = undefined;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private pageTitleService: PageTitleService,
     private messageService: MessageService,
-    private addressService: AddressService
+    private addressService: AddressService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.pageTitleService.changeTitle(this.router.url);
+    this.activatedRoute.params.subscribe((param) => {
+      const patientId = param['id'];
+      if(patientId){
+        this.pageTitleService.changeTitle("edit-patient");
+        this.selectedPatient = this.patients.find((patient) => patient.id == patientId);
+        this.edit = true
+        this.patientForm.patchValue(
+          {
+            name: this.selectedPatient.name,
+            gender: this.selectedPatient.gender,
+            birthdate: this.selectedPatient.birthdate,
+            CPF: this.selectedPatient.CPF,
+            RG: this.selectedPatient.RG,
+            marital_status: this.selectedPatient.marital_status,
+            phone: this.selectedPatient.phone,
+            email: this.selectedPatient.email,
+            nationality: this.selectedPatient.nationality,
+            emergency_contact: this.selectedPatient.emergency_contact,
+            alergies: this.selectedPatient.alergies,
+            special_needs: this.selectedPatient.special_needs,
+            health_insurance: this.selectedPatient.health_insurance,
+            health_insurance_number: this.selectedPatient.health_insurance_number,
+            health_insurance_expiration: this.selectedPatient.health_insurance_expiration,
+            cep: this.selectedPatient.cep,
+            address_number: this.selectedPatient.address_number,
+            address_complement: this.selectedPatient.address_complement,
+            address_reference: this.selectedPatient.address_reference
+          }
+        )
+        this.searchCEP();
+      }
+    });
   };
 
   ngOnInit(): void { };
@@ -188,6 +225,64 @@ export class RegisterPatientComponent {
         }
       }
     );
+  }
+
+  delete(){
+    this.patients = this.patients.filter((p)=> p.id !== this.selectedPatient.id);
+    localStorage.setItem("patients", JSON.stringify(this.patients));
+    this.messageService.add({
+      severity: 'success',
+      summary: "Deletado",
+      detail: "Paciente deletado com sucesso"
+    });
+    this.patientForm.reset();
+    this.edit = false;
+    setTimeout(() => {
+      this.router.navigate([""]);
+    }, 2000);
+  }
+
+  update(){
+    this.patients.find((patient)=> {
+      if (patient.id === this.selectedPatient.id) {
+        Object.assign(patient,
+          {
+            name: this.patientForm.value.name,
+            gender: this.patientForm.value.gender,
+            birthdate: this.patientForm.value.birthdate,
+            CPF: this.patientForm.value.CPF,
+            RG: this.patientForm.value.RG,
+            marital_status: this.patientForm.value.marital_status,
+            phone: this.patientForm.value.phone,
+            nationality: this.patientForm.value.nationality,
+            emergency_contact: this.patientForm.value.emergency_contact,
+            cep: this.patientForm.value.cep,
+            email: this.patientForm.value.email,
+            alergies: this.patientForm.value.alergies,
+            special_needs: this.patientForm.value.special_needs,
+            health_insurance: this.patientForm.value.health_insurance,
+            health_insurance_number: this.patientForm.value.health_insurance_number,
+            health_insurance_expiration: this.patientForm.value.health_insurance_expiration,
+            address_number: this.patientForm.value.address_number,
+            address_complement: this.patientForm.value.address_complement,
+            address_reference: this.patientForm.value.address_reference
+          }
+        );
+        return true;
+      }
+      return false;
+    });
+    localStorage.setItem("patients", JSON.stringify(this.patients));
+    this.messageService.add({
+      severity: 'success',
+      summary: "Editado",
+      detail: "Informações editadas com sucesso"
+    });
+    this.patientForm.reset();
+    this.edit = false;
+    setTimeout(() => {
+      this.router.navigate([""]);
+    }, 2000);
   }
 
 }
