@@ -43,7 +43,17 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'register-appointment/:id',
+    component: RegisterAppointmentComponent,
+    canActivate: [authGuard]
+  },
+  {
     path: 'register-exam',
+    component: RegisterExamComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'register-exam/:id',
     component: RegisterExamComponent,
     canActivate: [authGuard]
   },

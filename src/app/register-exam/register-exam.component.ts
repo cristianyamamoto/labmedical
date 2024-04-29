@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from '../services/auth.service';
 import { PageTitleService } from '../services/page-title.service';
@@ -15,7 +16,8 @@ import { PageTitleService } from '../services/page-title.service';
     RouterLink,
     CommonModule,
     ToastModule,
-    FormsModule
+    FormsModule,
+    ButtonModule
   ],
   providers: [MessageService],
   templateUrl: './register-exam.component.html',
@@ -57,14 +59,37 @@ export class RegisterExamComponent {
   exams: any[] = this.getExams();
   selectedPatient: any = undefined;
   patientSearch: any = undefined;
+  edit: boolean = false;
+  selectedExam: any = undefined;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private pageTitleService: PageTitleService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.pageTitleService.changeTitle(this.router.url);
+    this.activatedRoute.params.subscribe((param) => {
+      const examId = param['id'];
+      if(examId){
+        this.pageTitleService.changeTitle("edit-exam");
+        this.selectedExam = this.exams.find((ex) => ex.id == examId);
+        this.edit = true
+        this.examForm.patchValue(
+          {
+            exam_name: this.selectedExam.exam_name,
+            date: this.selectedExam.date,
+            time: this.selectedExam.time,
+            exam_type: this.selectedExam.exam_type,
+            laboratory: this.selectedExam.laboratory,
+            document_url: this.selectedExam.document_url,
+            results: this.selectedExam.results
+          }
+        )
+        this.selectedPatient = this.router.getCurrentNavigation()?.extras.state?.['selectedPatient'];
+      }
+    });
   };
 
   ngOnInit(): void { };
@@ -154,4 +179,53 @@ export class RegisterExamComponent {
       patient.name.toLowerCase().includes(this.patientSearch.toLowerCase()));
     }
   }
+
+
+  delete(){
+    this.exams = this.exams.filter((ap)=> ap.id !== this.selectedExam.id);
+    localStorage.setItem("exams", JSON.stringify(this.exams));
+    this.messageService.add({
+      severity: 'success',
+      summary: "Deletado",
+      detail: "Exame deletado com sucesso"
+    });
+    this.examForm.reset();
+    this.edit = false;
+    setTimeout(() => {
+      this.router.navigate([""]);
+    }, 2000);
+  }
+
+  update(){
+    this.exams.find((ex)=> {
+      if (ex.id === this.selectedExam.id) {
+        Object.assign(ex,
+          {
+            exam_name: this.examForm.value.exam_name,
+            date: this.examForm.value.date,
+            time: this.examForm.value.time,
+            exam_type: this.examForm.value.exam_type,
+            laboratory: this.examForm.value.laboratory,
+            document_url: this.examForm.value.document_url,
+            results: this.examForm.value.results
+          }
+        );
+        return true;
+      }
+      return false;
+    });
+    localStorage.setItem("exams", JSON.stringify(this.exams));
+    this.messageService.add({
+      severity: 'success',
+      summary: "Editado",
+      detail: "Informações editadas com sucesso"
+    });
+    this.examForm.reset();
+    this.edit = false;
+    setTimeout(() => {
+      this.router.navigate([""]);
+    }, 2000);
+  }
+
+
 }

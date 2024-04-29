@@ -24,7 +24,7 @@
 
     <div class="row justify-content-center">
       <div class="display-flex">
-        <div class="card hover-pointer" *ngFor="let appointment of appointments">
+        <div class="card hover-pointer" *ngFor="let appointment of appointments" (click)="redirectToEditAppointment(appointment.id)">
           <i class="bi bi-calendar-check h3">
             <b class="m-2">{{ appointment?.appointment_motive }}</b>
             ID: {{ appointment?.id }}
@@ -48,7 +48,7 @@
 
     <div class="row justify-content-center">
       <div class="display-flex">
-        <div class="card hover-pointer" *ngFor="let exam of exams">
+        <div class="card hover-pointer" *ngFor="let exam of exams" (click)="redirectToEditExam(exam.id)">
           <i class="bi bi-calendar-heart h3">
             <b class="m-2">{{ exam?.exam_name }}</b>
             ID: {{ exam?.id }}
