@@ -51,7 +51,7 @@ export class RegisterExamComponent {
     }
   )
   usersList: any[] = this.authService.getUsers();
-  patientList: any[] = this.getPatients();
+  patients: any[] = this.getPatients();
   filteredPatients : any = [];
   address: any = undefined;
   exams: any[] = this.getExams();
@@ -141,16 +141,16 @@ export class RegisterExamComponent {
   }
 
   selectPatient(id: any){
-    this.selectedPatient = this.patientList.find((patient) => patient.id === id);
+    this.selectedPatient = this.patients.find((patient) => patient.id === id);
     this.patientSearch = "";
     this.filteredPatients = [];
   }
 
   searchPatient() {
-    if(!this.patientSearch || !this.patientList) {
+    if(!this.patientSearch || !this.patients) {
       this.filteredPatients = [];
     } else {
-      this.filteredPatients = this.patientList.filter((patient: { name: any; }) =>
+      this.filteredPatients = this.patients.filter((patient: { name: any; }) =>
       patient.name.toLowerCase().includes(this.patientSearch.toLowerCase()));
     }
   }

@@ -1,0 +1,68 @@
+<section class="ftco-section">
+
+  <div class="row justify-content-start">
+    <div class="col-12 text-center">
+      <h2>Prontuário de {{ selectedPatient?.name }}</h2>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+
+    <div class="d-flex ms-3">
+      <h5 class="mb-2"><b> Informações do Paciente {{ selectedPatient?.name }}: </b></h5>
+    </div>
+    <div class="ms-3">
+      <p>Convênio: {{ selectedPatient?.health_insurance }}</p>
+      <p>Contato de Emergência: {{ selectedPatient?.emergency_contact }}</p>
+      <p>Alergias: {{ selectedPatient?.alergies }}</p>
+      <p>Cuidados Específicos: {{ selectedPatient?.special_needs }}</p>
+    </div>
+
+    <div class="d-flex ms-3">
+      <h5 class="mb-2"><b>Consultas: </b></h5>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="display-flex">
+        <div class="card hover-pointer" *ngFor="let appointment of appointments">
+          <i class="bi bi-calendar-check h3">
+            <b class="m-2">{{ appointment?.appointment_motive }}</b>
+            ID: {{ appointment?.id }}
+          </i>
+          <p>{{ appointment?.date | date }} às {{ appointment?.time }}</p>
+          <p>{{ appointment?.description }}</p>
+          <p>Medicação: {{ appointment?.medication }}</p>
+          <p>Dosagem e Precauções: {{ appointment?.precautions }}</p>
+        </div>
+
+        <p *ngIf="appointments.length == 0" class="ms-3">
+          Nenhuma consulta cadastrada
+        </p>
+
+      </div>
+    </div>
+
+    <div class="d-flex ms-3 mt-4">
+      <h5 class="mb-2"><b>Exames: </b></h5>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="display-flex">
+        <div class="card hover-pointer" *ngFor="let exam of exams">
+          <i class="bi bi-calendar-heart h3">
+            <b class="m-2">{{ exam?.exam_name }}</b>
+            ID: {{ exam?.id }}
+          </i>
+          <p>{{ exam?.date | date }} às {{ exam?.time }}</p>
+          <p>Tipo de Exame: {{ exam?.exam_type }}</p>
+          <p>Laboratório: {{ exam?.laboratory }}</p>
+        </div>
+        <p *ngIf="exams.length == 0" class="ms-3">
+          Nenhum exame cadastrado
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</section>
