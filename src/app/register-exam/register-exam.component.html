@@ -1,0 +1,260 @@
+<section class="ftco-section">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12 text-center">
+        <h2>Encontre o paciente para exame</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <input
+          id="search-patient-field"
+          type="text"
+          class="form-control"
+          required
+          [(ngModel)]="patientSearch"
+          placeholder="Procurar paciente..."
+          (ngModelChange)="searchPatient()"
+        >
+      </div>
+
+      <div class="row justify-content-center mt-3">
+        <div class="display-flex">
+          <div class="card hover-pointer" *ngFor="let patient of filteredPatients" (click)="selectPatient(patient.id)">
+            <i class="bi bi-person-square h1"></i>
+            <h2><b>{{ patient.name }}</b></h2>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row justify-content-center mt-2">
+      <div class="col-12">
+        <div *ngIf="selectedPatient" class="wrap">
+          <div class="p-md-4">
+
+            <div class="d-flex">
+              <h5 class="mb-2"><b>Exame de {{ selectedPatient?.name }}</b></h5>
+            </div>
+
+            <form *ngIf="selectedPatient" action="#" (ngSubmit)="createExam()" [formGroup]="examForm">
+
+              <div class="row">
+
+                <div class="form-group col-6">
+                  <label class="static-label" for="exam_name-field">Nome do Exame*</label>
+                  <input
+                    id="exam_name-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="exam_name"
+                    [ngClass]="{'field-border-warning': (examForm.controls.exam_name.dirty ||
+                    examForm.controls.exam_name.touched) &&
+                    examForm.controls.exam_name.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(examForm.controls.exam_name.dirty ||
+                    examForm.controls.exam_name.touched) &&
+                    examForm.controls.exam_name.errors &&
+                    examForm.controls.exam_name.errors['required']"
+                  >
+                  Preencha o Nome do Exame.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(examForm.controls.exam_name.dirty ||
+                    examForm.controls.exam_name.touched) &&
+                    examForm.controls.exam_name.errors &&
+                    (examForm.controls.exam_name.errors['minlength'] ||
+                    examForm.controls.exam_name.errors['maxlength'])"
+                  >
+                  Nome do Exame deve conter de 8 a 64 caracteres.
+                  </span>
+                </div>
+
+                <div class="form-group col-3">
+                  <label class="static-label" for="date-field">Data</label>
+                  <input
+                    id="date-field"
+                    type="date"
+                    class="form-control"
+                    required
+                    formControlName="date"
+                    [ngClass]="{'field-border-warning': (examForm.controls.date.dirty ||
+                    examForm.controls.date.touched) &&
+                    examForm.controls.date.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(examForm.controls.date.dirty ||
+                    examForm.controls.date.touched) &&
+                    examForm.controls.date.errors &&
+                    examForm.controls.date.errors['required']"
+                  >
+                  Preencha a Data do Exame.
+                  </span>
+                </div>
+
+                <div class="form-group col-3">
+                  <label class="static-label" for="time-field">Horário</label>
+                  <input
+                    id="time-field"
+                    type="time"
+                    class="form-control"
+                    required
+                    formControlName="time"
+                    [ngClass]="{'field-border-warning': (examForm.controls.time.dirty ||
+                    examForm.controls.time.touched) &&
+                    examForm.controls.time.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(examForm.controls.time.dirty ||
+                    examForm.controls.time.touched) &&
+                    examForm.controls.time.errors &&
+                    examForm.controls.time.errors['required']"
+                  >
+                  Preencha o Horário da Consulta.
+                  </span>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="form-group col-6">
+                  <label class="static-label" for="exam_type-field">Tipo do Exame</label>
+                  <input
+                    id="exam_type-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="exam_type"
+                    [ngClass]="{'field-border-warning': (examForm.controls.exam_type.dirty ||
+                    examForm.controls.exam_type.touched) &&
+                    examForm.controls.exam_type.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(examForm.controls.exam_type.dirty ||
+                    examForm.controls.exam_type.touched) &&
+                    examForm.controls.exam_type.errors &&
+                    examForm.controls.exam_type.errors['required']"
+                  >
+                  Preencha o Tipo do Exame.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(examForm.controls.exam_type.dirty ||
+                    examForm.controls.exam_type.touched) &&
+                    examForm.controls.exam_type.errors &&
+                    (examForm.controls.exam_type.errors['minlength'] ||
+                    examForm.controls.exam_type.errors['maxlength'])"
+                  >
+                  Tipo do exame deve conter de 4 a 32 caracteres.
+                  </span>
+                </div>
+
+                <div class="form-group col-6">
+                  <label class="static-label" for="laboratory-field">Laboratório</label>
+                  <input
+                    id="laboratory-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="laboratory"
+                    [ngClass]="{'field-border-warning': (examForm.controls.laboratory.dirty ||
+                    examForm.controls.laboratory.touched) &&
+                    examForm.controls.laboratory.errors}"
+                  >
+                  <span
+                    class="field-warning"
+                    *ngIf="(examForm.controls.laboratory.dirty ||
+                    examForm.controls.laboratory.touched) &&
+                    examForm.controls.laboratory.errors &&
+                    examForm.controls.laboratory.errors['required']"
+                  >
+                  Preencha o Laboratório.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(examForm.controls.laboratory.dirty ||
+                    examForm.controls.laboratory.touched) &&
+                    examForm.controls.laboratory.errors &&
+                    (examForm.controls.laboratory.errors['minlength'] ||
+                    examForm.controls.laboratory.errors['maxlength'])"
+                  >
+                  Laboratório deve conter de 4 a 32 caracteres.
+                  </span>
+                </div>
+
+              </div>
+
+
+              <div class="row">
+                <div class="form-group col-12">
+                  <label class="static-label" for="document_url-field">URL do Documento do Exame</label>
+                  <input
+                    id="document_url-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="document_url"
+                  >
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-12">
+                  <label class="static-label" for="results-field">Resultados do Exame</label>
+                  <textarea
+                    id="results-field"
+                    type="text"
+                    class="form-control"
+                    required
+                    formControlName="results"
+                    [ngClass]="{'field-border-warning': (examForm.controls.results.dirty ||
+                    examForm.controls.results.touched) &&
+                    examForm.controls.results.errors}"
+                  >
+                  </textarea>
+                  <span
+                    class="field-warning"
+                    *ngIf="(examForm.controls.results.dirty ||
+                    examForm.controls.results.touched) &&
+                    examForm.controls.results.errors &&
+                    examForm.controls.results.errors['required']"
+                  >
+                  Preencha os Resultados do Exame.
+                  </span>
+                  <span
+                    class="field-warning"
+                    *ngIf="(examForm.controls.results.dirty ||
+                    examForm.controls.results.touched) &&
+                    examForm.controls.results.errors &&
+                    (examForm.controls.results.errors['minlength'] ||
+                    examForm.controls.results.errors['maxlength'])"
+                  >
+                  Resultados do Exame deve conter de 16 a 1024 caracteres.
+                  </span>
+                </div>
+              </div>
+
+              <div class="row justify-content-center">
+                <div class="form-group col-4">
+                  <button type="submit" class="form-control btn btn-primary rounded submit px-3">Cadastrar</button>
+                </div>
+              </div>
+
+              <p-toast [life]="3000"></p-toast>
+            </form>
+          </div> <!--  -->
+        </div> <!-- wrap -->
+      </div> <!--  -->
+    </div> <!--  -->
+  </div> <!-- container -->
+
+</section>
