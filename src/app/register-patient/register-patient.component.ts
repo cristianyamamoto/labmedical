@@ -79,7 +79,7 @@ export class RegisterPatientComponent {
   usersList: any[] = this.authService.getUsers();
   genders: string[] = ['Masculino', 'Feminino', 'Outro', 'Não Informar'];
   marital_statuses: string[] = ['Casado', 'Solteiro', 'Outro'];
-  patientList: any[] = [];
+  patientList: any[] = this.getPatients();
   address: any = undefined;
 
   constructor(
@@ -93,6 +93,16 @@ export class RegisterPatientComponent {
   };
 
   ngOnInit(): void { };
+
+  getPatients() {
+    const patients = localStorage.getItem("patients");
+    if (!!patients) {
+      return JSON.parse(patients);
+    } else {
+      localStorage.setItem("patients", JSON.stringify([]));
+      return [];
+    };
+  }
 
   createPatient(){
     const requiredInputs: any = [
@@ -133,7 +143,9 @@ export class RegisterPatientComponent {
     });
 
     if (!checkFormInputs){
+      const id = (this.patientList[this.patientList.length - 1]?.id ?? -1) + 1;
       const newPatient = {
+        id,
         name: inputs[0]["Nome Completo"],
         gender: inputs[1]["Gênero"],
         birthdate: inputs[2]["Data de Nascimento"],
