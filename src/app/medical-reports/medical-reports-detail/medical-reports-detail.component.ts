@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-medical-reports-detail',
@@ -21,7 +21,7 @@ export class MedicalReportsDetailComponent {
   exams: any[] = this.getExams();
   selectedPatient: any = undefined;
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe((param) => {
       const patientId = param['id'];
       this.selectedPatient = this.patients.find((patient) => patient.id == patientId);
@@ -60,5 +60,14 @@ export class MedicalReportsDetailComponent {
       localStorage.setItem("exams", JSON.stringify([]));
       return [];
     };
+  }
+
+  redirectToEditAppointment(id: number){
+    this.router.navigate([`/register-appointment/${id}`], { state: { selectedPatient: this.selectedPatient } });
+  }
+
+  redirectToEditExam(id: number){
+    console.log(`/register-exam/${id}`);
+    this.router.navigate([`/register-exam/${id}`], { state: { selectedPatient: this.selectedPatient } });
   }
 }

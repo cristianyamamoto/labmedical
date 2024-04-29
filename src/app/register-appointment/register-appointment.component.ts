@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from '../services/auth.service';
 import { PageTitleService } from '../services/page-title.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-register-appointment',
@@ -15,7 +16,8 @@ import { PageTitleService } from '../services/page-title.service';
     RouterLink,
     CommonModule,
     ToastModule,
-    FormsModule
+    FormsModule,
+    ButtonModule
   ],
   providers: [MessageService],
   templateUrl: './register-appointment.component.html',
@@ -52,14 +54,36 @@ export class RegisterAppointmentComponent {
   appointments: any[] = this.getAppoitments();
   selectedPatient: any = undefined;
   patientSearch: any = undefined;
+  edit: boolean = false;
+  selectedAppointment: any = undefined;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private pageTitleService: PageTitleService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.pageTitleService.changeTitle(this.router.url);
+    this.activatedRoute.params.subscribe((param) => {
+      const appointmentId = param['id'];
+      if(appointmentId){
+        this.pageTitleService.changeTitle("edit-appointment");
+        this.selectedAppointment = this.appointments.find((ap) => ap.id == appointmentId);
+        this.edit = true
+        this.appointmentForm.patchValue(
+          {
+            appointment_motive: this.selectedAppointment.appointment_motive,
+            date: this.selectedAppointment.date,
+            time: this.selectedAppointment.time,
+            description: this.selectedAppointment.description,
+            medication: this.selectedAppointment.medication,
+            precautions: this.selectedAppointment.precautions
+          }
+        )
+        this.selectedPatient = this.router.getCurrentNavigation()?.extras.state?.['selectedPatient'];
+      }
+    });
   };
 
   ngOnInit(): void { };
@@ -146,6 +170,51 @@ export class RegisterAppointmentComponent {
       this.filteredPatients = this.patients.filter((patient: { name: any; }) =>
       patient.name.toLowerCase().includes(this.patientSearch.toLowerCase()));
     }
+  }
+
+  delete(){
+    this.appointments = this.appointments.filter((ap)=> ap.id !== this.selectedAppointment.id);
+    localStorage.setItem("appointments", JSON.stringify(this.appointments));
+    this.messageService.add({
+      severity: 'success',
+      summary: "Deletada",
+      detail: "Consulta deletada com sucesso"
+    });
+    this.appointmentForm.reset();
+    this.edit = false;
+    setTimeout(() => {
+      this.router.navigate([""]);
+    }, 2000);
+  }
+
+  update(){
+    this.appointments.find((ap)=> {
+      if (ap.id === this.selectedAppointment.id) {
+        Object.assign(ap,
+          {
+            appointment_motive: this.appointmentForm.value.appointment_motive,
+            date: this.appointmentForm.value.date,
+            time: this.appointmentForm.value.time,
+            description: this.appointmentForm.value.description,
+            medication: this.appointmentForm.value.medication,
+            precautions: this.appointmentForm.value.precautions
+          }
+        );
+        return true;
+      }
+      return false;
+    });
+    localStorage.setItem("appointments", JSON.stringify(this.appointments));
+    this.messageService.add({
+      severity: 'success',
+      summary: "Editado",
+      detail: "Informações editadas com sucesso"
+    });
+    this.appointmentForm.reset();
+    this.edit = false;
+    setTimeout(() => {
+      this.router.navigate([""]);
+    }, 2000);
   }
 
 }
