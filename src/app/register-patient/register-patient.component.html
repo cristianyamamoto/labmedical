@@ -2,7 +2,8 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-12 text-center">
-        <h2>Preencha os campos para cadastrar um paciente</h2>
+        <h2 *ngIf="!edit">Preencha os campos para cadastrar um paciente</h2>
+        <h2 *ngIf="edit">Editar informações do paciente {{ selectedPatient.name }}</h2>
       </div>
     </div>
     <div class="row justify-content-center mt-2">
@@ -509,7 +510,9 @@
 
               <div class="row justify-content-center">
                 <div class="form-group col-4">
-                  <button type="submit" class="form-control btn btn-primary rounded submit px-3">Cadastrar</button>
+                  <button  *ngIf="!edit" type="submit" class="form-control btn btn-primary rounded submit px-3">Cadastrar</button>
+                  <p-button *ngIf="edit" class="m-3" (click)="delete()" severity="danger" label="Deletar"></p-button>
+                  <p-button *ngIf="edit" class="" (click)="update()" type="submit" label="Editar"></p-button>
                 </div>
               </div>
 
