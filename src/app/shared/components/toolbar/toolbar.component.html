@@ -1,5 +1,10 @@
 <div *ngIf="loggedUser" class="toolbar">
-  <h1> LABMedical </h1>
+  <h1 *ngIf="title == ''"> LABMedical </h1>
+  <h1 *ngIf="title == '/home'"> Estatísticas e Informações </h1>
+  <h1 *ngIf="title == '/register-patient'"> Cadastro do Paciente </h1>
+  <h1 *ngIf="title == '/list-medical-record'"> Prontuário de Paciente </h1>
+  <h1 *ngIf="title == '/register-appointment'"> Cadastro de Consulta </h1>
+  <h1 *ngIf="title == '/register-exam'"> Cadastro de Exame </h1>
   <div class="toolbar-profile">
     <div class="container">
       <div class="row">
