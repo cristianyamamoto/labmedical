@@ -1,123 +1,4 @@
 <section class="ftco-section">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-
-        <p-dialog
-          header="Add an exercise"
-          [(visible)]="visible"
-          [breakpoints]="{ '480px': '100vw','768px': '80vw','1024px': '70vw' }"
-          [style]="{width: '60vw'}"
-        >
-        <ng-template pTemplate="header">
-          <h1 *ngIf="!editExercise">Add an exercise</h1>
-          <h1 *ngIf="editExercise">Edit exercise</h1>
-        </ng-template>
-
-
-        <form action="#" class="" [formGroup]="exerciseForm">
-
-          <div *ngIf="editExercise" class="form-group mt-3">
-            <label class="static-label" for="id-field">Exercise ID (read only)</label>
-            <input
-              id="id-field"
-              type="text"
-              class="form-control"
-              readonly
-              formControlName="id"
-            >
-          </div>
-
-          <div class="form-group mt-3">
-            <label class="static-label" for="type-field">Type*</label>
-            <select
-              id="type-field"
-              class="form-control"
-              required
-              formControlName="type"
-              [ngClass]="{'field-border-warning': (exerciseForm.controls.type.dirty ||
-              exerciseForm.controls.type.touched) &&
-              exerciseForm.controls.type.errors}"
-            >
-              <option selected value="">-- select an exercise --</option>
-              <option *ngFor="let type of types" [ngValue]="type">{{ type.name }}</option>
-            </select>
-            <span
-              class="field-warning"
-              *ngIf="(exerciseForm.controls.type.dirty ||
-              exerciseForm.controls.type.touched) &&
-              exerciseForm.controls.type.errors &&
-              exerciseForm.controls.type.errors['required']"
-            >
-            Type field is required.
-            </span>
-          </div>
-
-          <div class="form-group mt-3">
-            <label class="static-label" for="description-field">Description (optional)</label>
-            <input
-              id="description-field"
-              type="text"
-              class="form-control"
-              required
-              formControlName="description"
-            >
-          </div>
-
-          <div class="form-group mt-3">
-            <label class="static-label" for="type-field">Date*</label>
-            <input
-              id="date-field"
-              type="date"
-              class="form-control"
-              required
-              formControlName="date"
-              [ngClass]="{'field-border-warning': (exerciseForm.controls.date.dirty ||
-              exerciseForm.controls.date.touched) &&
-              exerciseForm.controls.date.errors}"
-            >
-            <span
-              class="field-warning"
-              *ngIf="(exerciseForm.controls.date.dirty ||
-              exerciseForm.controls.date.touched) &&
-              exerciseForm.controls.date.errors &&
-              exerciseForm.controls.date.errors['required']"
-            >
-            Date field is required.
-            </span>
-          </div>
-
-          <div class="form-group mt-3">
-            <label class="static-label" for="distance-field">Distance - meters (optional)</label>
-            <input
-              id="distance-field"
-              type="number"
-              class="form-control"
-              required
-              formControlName="distance"
-            >
-          </div>
-          <div class="form-group mt-3">
-            <label class="static-label" for="time-field">Time (optional)</label>
-            <input
-              id="time-field"
-              type="time"
-              class="form-control"
-              required
-              formControlName="time"
-            >
-          </div>
-        </form>
-        <ng-template pTemplate="footer">
-          <p-button (click)="cancel()" type="cancel" severity="secondary" label="Cancel"></p-button>
-          <p-button *ngIf="editExercise" (click)="deleteExercise()" severity="danger" label="Delete"></p-button>
-          <p-button *ngIf="editExercise" (click)="updateExercise()" type="submit" label="Edit"></p-button>
-          <p-button *ngIf="!editExercise"(click)="createExercise()" type="submit" label="Add"></p-button>
-        </ng-template>
-        </p-dialog>
-      </div>
-    </div>
-  </div>
 
   <div class="row justify-content-start">
     <div class="col-12 text-center">
@@ -129,18 +10,18 @@
     <div class="display-flex">
 
       <div class="card col">
-        <i class="bi bi-people-fill h1"> 20 </i>
+        <i class="bi bi-people-fill h1"> {{ patients.length }} </i>
         <h2><b>Pacientes</b></h2>
       </div>
 
       <div class="card col" >
-        <i class="bi bi-calendar-check h1"> 10 </i>
+        <i class="bi bi-calendar-check h1"> {{ appointments.length }} </i>
 
         <h2><b>Consultas</b></h2>
       </div>
 
       <div class="card col" >
-        <i class="bi bi-calendar-heart h1"> 30 </i>
+        <i class="bi bi-calendar-heart h1"> {{ exams.length }}  </i>
         <h2><b>Exames</b></h2>
       </div>
 
@@ -154,39 +35,31 @@
     </div>
   </div>
 
-  <div class="container">
+  <div class="container-fluid">
 
   <div class="row">
-    <div class="col-12 mb-3">
+    <div class="col-12 m-2">
       <input
-        id="search-exercise-field"
+        id="search-patient-field"
         type="text"
         class="form-control"
         required
-        [(ngModel)]="exercise"
+        [(ngModel)]="patient"
         placeholder="Procurar paciente..."
-        (ngModelChange)="searchExercise()"
+        (ngModelChange)="searchPatient()"
       >
     </div>
-    <!-- <div  class="col-2">
-      <button
-        pButton
-        (click)="showDialog()"
-        class="btn btn-primary"
-      >
-      Add an exercise
-      </button>
-    </div> -->
   </div>
 
     <div class="row justify-content-center">
       <div class="display-flex">
-        <div class="card hover-pointer" *ngFor="let exercise of filteredExercises" (click)="showDialogEditExercise(exercise)">
-          <h1><b>{{ exercise.type.name }} ({{ exercise.date }})</b></h1>
-          <img src="{{ exercise.type.image }}" alt="{{ exercise.type.name }}">
-          <p *ngIf="exercise.description">Description: {{ exercise.description }}</p>
-          <p *ngIf="exercise.distance">Distance: {{ exercise.distance }} m</p>
-          <p *ngIf="exercise.time">Time: {{ exercise.time }}</p>
+        <div class="card hover-pointer" *ngFor="let patient of filteredPatients">
+          <i class="bi bi-person-square h1"></i>
+          <h2><b>{{ patient.name }}</b></h2>
+          <p>{{ patient.birthdate | date : 'yyyy/MM/dd' | birthdateToAge }} anos</p>
+          <p>{{ patient.email }}</p>
+          <p>{{ patient.phone }}</p>
+          <p>{{ patient.health_insurance !== '' ? patient.health_insurance : 'Sem Plano' }}</p>
         </div>
       </div>
     </div>
