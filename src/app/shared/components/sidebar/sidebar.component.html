@@ -21,14 +21,14 @@
 
                   <div class="col-12 menu-border mb-2">
                     <li class="w-100">
-                      <a href="#">
+                      <a routerLink="home">
                         <i class="fs-4 bi bi-bar-chart"></i>
                         <span *ngIf="expandSidebar" class="d-none d-sm-inline">Início&nbsp;&nbsp;&nbsp;</span></a>
                     </li>
                   </div>
                   <div class="col-12 menu-border">
                     <li>
-                      <a href="#">
+                      <a (click)="signOut()" routerLink="login">
                         <i class=" fs-4 bi bi-box-arrow-right"></i>
                         <span *ngIf="expandSidebar" class="d-none d-sm-inline">Sair&nbsp;&nbsp;&nbsp;</span>
                       </a>
@@ -49,14 +49,14 @@
 
                   <div class="col-12 menu-border mb-2">
                     <li class="w-100">
-                      <a href="#">
+                      <a routerLink="register-patient">
                         <i class="fs-4 bi bi-plus"></i>
                         <span *ngIf="expandSidebar" class="d-none d-sm-inline">Cadastrar </span></a>
                     </li>
                   </div>
                   <div class="col-12 menu-border">
                     <li>
-                      <a href="#">
+                      <a routerLink="list-medical-record">
                         <i class="fs-4 bi bi-list-ul"></i>
                         <span *ngIf="expandSidebar" class="d-none d-sm-inline">Listar Prontuário</span>
                       </a>
@@ -76,14 +76,14 @@
 
                   <div class="col-12 menu-border mb-2">
                     <li class="w-100">
-                      <a href="#">
+                      <a routerLink="register-appointment">
                         <i class="fs-4 bi bi-plus"></i>
                         <span *ngIf="expandSidebar" class="d-none d-sm-inline">Cadastrar Consulta</span></a>
                     </li>
                   </div>
                   <div class="col-12 menu-border">
                     <li>
-                      <a href="#">
+                      <a routerLink="register-exam">
                         <i class="fs-4 bi bi-plus"></i>
                         <span *ngIf="expandSidebar" class="d-none d-sm-inline">Cadastrar Exame</span></a>
                     </li>
