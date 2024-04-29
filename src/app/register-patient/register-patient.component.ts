@@ -79,7 +79,7 @@ export class RegisterPatientComponent {
   usersList: any[] = this.authService.getUsers();
   genders: string[] = ['Masculino', 'Feminino', 'Outro', 'Não Informar'];
   marital_statuses: string[] = ['Casado', 'Solteiro', 'Outro'];
-  patientList: any[] = this.getPatients();
+  patients: any[] = this.getPatients();
   address: any = undefined;
 
   constructor(
@@ -143,7 +143,7 @@ export class RegisterPatientComponent {
     });
 
     if (!checkFormInputs){
-      const id = (this.patientList[this.patientList.length - 1]?.id ?? -1) + 1;
+      const id = (this.patients[this.patients.length - 1]?.id ?? -1) + 1;
       const newPatient = {
         id,
         name: inputs[0]["Nome Completo"],
@@ -158,7 +158,7 @@ export class RegisterPatientComponent {
         cep: inputs[9]["CEP"],
         email: inputs[10]["E-mail"],
         alergies: inputs[11]["Alergias"],
-        special_needs: inputs[12]["Cuidados Específico"],
+        special_needs: inputs[12]["Cuidados Específicos"],
         health_insurance: inputs[13]["Convênio"],
         health_insurance_number: inputs[14]["Número do Convênio"],
         health_insurance_expiration: inputs[15]["Validade do Convênio"],
@@ -166,8 +166,8 @@ export class RegisterPatientComponent {
         address_complement: inputs[17]["Complemento"],
         address_reference: inputs[18]["Ponto de Referência"]
       };
-      this.patientList.push(newPatient);
-      localStorage.setItem("patients", JSON.stringify(this.patientList));
+      this.patients.push(newPatient);
+      localStorage.setItem("patients", JSON.stringify(this.patients));
       this.messageService.add({
         severity: 'success',
         summary: "Cadastro",
